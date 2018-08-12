@@ -4,7 +4,7 @@
     "description": "An HTTP server for debugging.",
     "main": "build",
     "bin": {
-        "vamtiger-debug-server": "build"
+        "vamtiger-debug-server": "build/index.js"
     },
     "scripts": {
         "test": "npm run test-bundle && mocha build/test --recursive",
