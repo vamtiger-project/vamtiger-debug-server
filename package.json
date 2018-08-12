@@ -1,10 +1,10 @@
 {
     "name": "vamtiger-debug-server",
-    "version": "0.0.5",
+    "version": "0.0.6-0",
     "description": "An HTTP server for debugging.",
     "main": "build",
     "bin": {
-        "vamtiger-debug-server": "build"
+        "vamtiger-debug-server": "build/index.js"
     },
     "scripts": {
         "test": "npm run test-bundle && mocha build/test --recursive",
