@@ -27,7 +27,7 @@ Or if install globally, it can be run as a binary executable:
 vamtiger-debug-server --port 8888
 ```
 
-After starting [VAMTIGER Debug Server](https://github.com/vamtiger-project/vamtiger-debug-server), modules can be debugged via POST a request:
+After starting [VAMTIGER Debug Server](https://github.com/vamtiger-project/vamtiger-debug-server), modules can be debugged via a POST request:
 ```typescript
 import { post } from 'request-promise';
 ```
