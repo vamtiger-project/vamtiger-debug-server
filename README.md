@@ -58,7 +58,7 @@ const url = `http://localhost:8888/`;
 post({
     url,
     body: JSON.stringify({
-        path: 'path/to/module.default.test.attribute'
+        path: 'path/to/module.test.attribute'
     })
 });
 
@@ -66,7 +66,7 @@ post({
 post({
     url,
     body: JSON.stringify({
-        path: 'path/to/module.default.test.method',
+        path: 'path/to/module.test.method',
         arguments: []
     })
 });
@@ -75,7 +75,7 @@ post({
 post({
     url,
     body: JSON.stringify({
-        path: 'path/to/module.default.test.methodAsync',
+        path: 'path/to/module.test.methodAsync',
         arguments: ['booya kasha!'],
         callback: true
     })
