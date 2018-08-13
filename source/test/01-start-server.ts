@@ -21,7 +21,7 @@ describe('Start server - should return a result', function() {
 
     after(function () {
         stopServer();
-    })
+    });
 
     it('attribute', async function () {
         const body = {

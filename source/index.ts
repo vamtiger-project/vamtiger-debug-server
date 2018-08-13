@@ -3,49 +3,7 @@ import vamtigerRequire, { Params as RequireParams } from 'vamtiger-require';
 import { ReferenceObjectPath } from 'vamtiger-reference-object-path';
 import Argv = require('vamtiger-argv');
 
-export interface Params {
-    port: string | number;
-}
-
-export interface GetBodyParams {
-    request: IncomingMessage
-}
-
-export interface Body extends RequireParams {
-    callback?: boolean;
-    instanceGetPath?: string;
-}
-
-export enum Event {
-    data = 'data',
-    end = 'end'
-}
-
-export enum HeaderKey {
-    contentType = 'Content-Type'
-}
-
-export enum HeaderValue {
-    json = 'application/json'
-}
-
-export enum CommandlineArgs {
-    port = 'port'
-}
-
-export type VamtigerDebugServer = typeof vamtigerDebugServer;
-
-const Args = require('vamtiger-argv') as typeof Argv;
 const referenceObjectPath = require('vamtiger-reference-object-path') as ReferenceObjectPath;
-const args = new Args();
-const defaults = {
-    port: 8888
-}
-
-const port = args.has(CommandlineArgs.port) && args.get(CommandlineArgs.port) || defaults.port;
-
-if (port)
-    vamtigerDebugServer({ port });
 
 let server: Server;
 
@@ -110,3 +68,35 @@ function getBody({ request }: GetBodyParams): Promise<Body> {
         )
     })
 }
+
+export interface Params {
+    port: string | number;
+}
+
+export interface GetBodyParams {
+    request: IncomingMessage
+}
+
+export interface Body extends RequireParams {
+    callback?: boolean;
+    instanceGetPath?: string;
+}
+
+export enum Event {
+    data = 'data',
+    end = 'end'
+}
+
+export enum HeaderKey {
+    contentType = 'Content-Type'
+}
+
+export enum HeaderValue {
+    json = 'application/json'
+}
+
+export enum CommandlineArgs {
+    port = 'port'
+}
+
+export type VamtigerDebugServer = typeof vamtigerDebugServer;
