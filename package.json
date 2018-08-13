@@ -1,6 +1,6 @@
 {
     "name": "vamtiger-debug-server",
-    "version": "0.0.8",
+    "version": "0.0.9-0",
     "description": "An HTTP server for debugging.",
     "main": "build",
     "bin": {
@@ -48,6 +48,7 @@
         "request": "^2.88.0",
         "request-promise": "^4.2.2",
         "typescript": "^3.0.1",
+        "vamtiger-bundle-typescript": "latest",
         "vamtiger-node-typescript-commit": "latest"
     },
     "dependencies": {

@@ -57,28 +57,31 @@ const url = `http://localhost:8888/`;
 // attribute
 post({
     url,
-    body: JSON.stringify({
+    body: {
         path: 'path/to/module.test.attribute'
-    })
+    },
+    json: true
 });
 
 // method
 post({
     url,
-    body: JSON.stringify({
+    body: {
         path: 'path/to/module.test.method',
         arguments: []
-    })
+    },
+    json: true
 });
 
 // method: async
 post({
     url,
-    body: JSON.stringify({
+    body: {
         path: 'path/to/module.test.methodAsync',
         arguments: ['booya kasha!'],
         callback: true
-    })
+    },
+    json: true
 });
 ```
 
@@ -109,35 +112,38 @@ export class TestClass {
 // Class - getMethod
 post({
     url,
-    body: JSON.stringify({
+    body: {
         path: `path/to/module.TestClass`,
         instanceGetPath: 'test',
         constructorParams: {
             booya: 'kasha'
         }
-    })
+    },
+    json: true
 });
 
 // Class - method
 post({
     url,
-    body: JSON.stringify({
+    body: {
         path: `path/to/module.TestClass`,
         instancePath: 'sum',
         constructorParams: {},
         instanceArguments: [1, 2, 3, 4, 5]
-    })
+    },
+    json: true
 });
 
 // Class - method: async
 post({
     url,
-    body: JSON.stringify({
+    body: {
         path: `path/to/module.TestClass`,
         instancePath: 'sumAsync',
         constructorParams: {},
         instanceArguments: [1, 2],
         callback: true
-    })
+    },
+    json: true
 });
 ```
