@@ -1,20 +1,22 @@
 {
     "name": "vamtiger-debug-server",
-    "version": "0.0.6",
+    "version": "0.0.7-0",
     "description": "An HTTP server for debugging.",
     "main": "build",
     "bin": {
-        "vamtiger-debug-server": "build/index.js"
+        "vamtiger-debug-server": "build/bin.js"
     },
     "scripts": {
-        "test": "npm run test-bundle && mocha build/test --recursive",
+        "test": "npm run test-bundle && npm run mocha",
+        "mocha": "mocha build/test --recursive",
         "clean": "rm -rf build/*",
         "build": "npm run clean && tsc",
+        "build-bin": "tsc --project tsconfig-bin.json",
         "test-build": "tsc",
         "build-types": "npm run clean && tsc --project tsconfig-declaration.json",
         "test-build-types": "tsc --project tsconfig-declaration.json",
         "commit": "npm run bundle && vamtiger-node-typescript-commit --push --publish --buildScript bundle",
-        "bundle": "npm run test && npm run build-types && vamtiger-bundle-typescript --relativePath --entryFilePath source/index.ts --bundleFilePath build/index.js --format cjs --sourcemap true --minify --copySourceMap",
+        "bundle": "npm run test && npm run build-types && npm run build-bin && vamtiger-bundle-typescript --relativePath --entryFilePath source/index.ts --bundleFilePath build/index.js --format cjs --sourcemap true --minify --copySourceMap",
         "test-bundle": "npm run test-build && npm run test-build-types && vamtiger-bundle-typescript --relativePath --entryFilePath source/index.ts --bundleFilePath build/index.js --format cjs --sourcemap true --minify --copySourceMap",
         "watch": "npm run clean && npm run build-types && vamtiger-bundle-typescript --relativePath --entryFilePath source/index.ts --bundleFilePath build/index.js --format cjs --sourcemap true --minify --copySourceMap --watch",
         "test-watch": "npm run test-build && npm run test-build-types && vamtiger-bundle-typescript --relativePath --entryFilePath source/index.ts --bundleFilePath build/index.js --format cjs --sourcemap true --minify --copySourceMap --watch"

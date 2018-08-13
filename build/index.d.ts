@@ -1,6 +1,8 @@
 /// <reference types="node" />
 import { Server, IncomingMessage } from 'http';
 import { Params as RequireParams } from 'vamtiger-require';
+export default function vamtigerDebugServer({ port }: Params): Server;
+export declare function stopServer(): void;
 export interface Params {
     port: string | number;
 }
@@ -25,5 +27,3 @@ export declare enum CommandlineArgs {
     port = "port"
 }
 export declare type VamtigerDebugServer = typeof vamtigerDebugServer;
-export default function vamtigerDebugServer({ port }: Params): Server;
-export declare function stopServer(): void;
