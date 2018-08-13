@@ -29,10 +29,11 @@ describe('Start server - should return a result', function() {
         };
         const requestParams = {
             url,
-            body: JSON.stringify(body)
+            body: body,
+            json: true
         };
         const response = await post(requestParams);
-        const { result } = JSON.parse(response);
+        const { result } = response;
         const expected = mockData.test.attribute;
 
         expect(result).to.be.ok;
@@ -46,10 +47,11 @@ describe('Start server - should return a result', function() {
         };
         const requestParams = {
             url,
-            body: JSON.stringify(body)
+            body: body,
+            json: true
         };
         const response = await post(requestParams);
-        const { result } = JSON.parse(response);
+        const { result } = response;
         const expected = mockData.test.method();
 
         expect(result).to.be.ok;
@@ -64,10 +66,11 @@ describe('Start server - should return a result', function() {
         };
         const requestParams = {
             url,
-            body: JSON.stringify(body)
+            body: body,
+            json: true
         };
         const response = await post(requestParams);
-        const { result } = JSON.parse(response);
+        const { result } = response;
         const expected = 'booya kasha!';
 
         expect(result).to.be.ok;
@@ -84,10 +87,11 @@ describe('Start server - should return a result', function() {
         };
         const requestParams = {
             url,
-            body: JSON.stringify(body)
+            body: body,
+            json: true
         };
         const response = await post(requestParams);
-        const { result } = JSON.parse(response);
+        const { result } = response;
         const expected = 'params.booya: kasha';
 
         expect(result).to.be.ok;
@@ -103,10 +107,11 @@ describe('Start server - should return a result', function() {
         };
         const requestParams = {
             url,
-            body: JSON.stringify(body)
+            body: body,
+            json: true
         };
         const response = await post(requestParams);
-        const { result } = JSON.parse(response);
+        const { result } = response;
         const expected = 15;
 
         expect(result).to.be.ok;
@@ -123,10 +128,11 @@ describe('Start server - should return a result', function() {
         };
         const requestParams = {
             url,
-            body: JSON.stringify(body)
+            body: body,
+            json: true
         };
         const response = await post(requestParams);
-        const { result } = JSON.parse(response);
+        const { result } = response;
         const expected = 3;
 
         expect(result).to.be.ok;

@@ -48,6 +48,7 @@
         "request": "^2.88.0",
         "request-promise": "^4.2.2",
         "typescript": "^3.0.1",
+        "vamtiger-bundle-typescript": "latest",
         "vamtiger-node-typescript-commit": "latest"
     },
     "dependencies": {
