@@ -4,10 +4,10 @@ import { post } from 'request-promise';
 import startServer, { stopServer } from '..';
 import mockData, { requireArguments, callbackPath } from './mock-data';
 
-const url = `http://localhost:8888/`;
 const serverParams = {
     port: '8888'
 };
+const url = `http://localhost:${serverParams.port}/`;
 const mockDataPath = resolvePath(
     __dirname,
     'mock-data'
