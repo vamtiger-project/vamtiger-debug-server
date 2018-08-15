@@ -1,6 +1,6 @@
 {
     "name": "vamtiger-debug-server",
-    "version": "0.0.13-0",
+    "version": "0.0.13",
     "description": "An HTTP server for debugging.",
     "main": "build",
     "bin": {
