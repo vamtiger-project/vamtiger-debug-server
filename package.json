@@ -54,6 +54,6 @@
     "dependencies": {
         "vamtiger-argv": "latest",
         "vamtiger-reference-object-path": "latest",
-        "vamtiger-require": "latest"
+        "vamtiger-require": "0.0.8"
     }
 }

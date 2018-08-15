@@ -47,6 +47,17 @@ module.exports = {
         },
         methodAsync: (param: string, callback: Callback<string>) => {
             callback(null, param)
+        },
+        sum: (numbers: number[]) => numbers.reduce((sum, number) => sum + number, 0),
+        sumAsync: (number1: number, number2: number, callback: Callback<number>) => callback(null, [number1, number2].reduce((sum, number) => sum + number, 0)),
+        argument1: 1,
+        argument2: 2,
+        argument3: 3,
+        callback: function (error: Error, result: number) {
+            if (error)
+                throw error;
+
+            return result;
         }
     }
 };
@@ -114,7 +125,7 @@ post({
     url,
     body: {
         path: `path/to/module.TestClass`,
-        instanceGetPath: 'test',
+        instanceAttribute: 'test',
         constructorParams: {
             booya: 'kasha'
         }
@@ -127,9 +138,9 @@ post({
     url,
     body: {
         path: `path/to/module.TestClass`,
-        instancePath: 'sum',
+        instanceMethod: 'sum',
         constructorParams: {},
-        instanceArguments: [1, 2, 3, 4, 5]
+        arguments: [1, 2, 3, 4, 5]
     },
     json: true
 });
@@ -139,11 +150,40 @@ post({
     url,
     body: {
         path: `path/to/module.TestClass`,
-        instancePath: 'sumAsync',
+        instanceMethod: 'sumAsync',
         constructorParams: {},
-        instanceArguments: [1, 2],
+        arguments: [1, 2],
         callback: true
     },
     json: true
 });
+```
+
+Arguments can also be dynamically imported:
+```javascript
+post({
+    url,
+    body: {
+        path: 'path/to/module.test.sum',
+        requireArguments: [
+            'path/to/module.test.argument1',
+            'path/to/module.test.argument2',
+            'path/to/module.test.argument3'
+        ]
+    },
+    json: true
+}); // 6
+
+post({
+    url,
+    body: {
+        path: 'path/to/module.test.sumAsync',
+        requireArguments: [
+            'path/to/module.test.argument1',
+            'path/to/module.test.argument2',
+            'path/to/module.test.callback'
+        ]
+    },
+    json: true
+}); // 3
 ```

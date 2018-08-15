@@ -2,7 +2,7 @@ import { resolve as resolvePath } from 'path';
 import { expect } from 'chai';
 import { post } from 'request-promise';
 import startServer, { stopServer } from '..';
-import mockData from './mock-data';
+import mockData, { requireArguments, callbackPath } from './mock-data';
 
 const url = `http://localhost:8888/`;
 const serverParams = {
@@ -58,6 +58,24 @@ describe('Start server - should return a result', function() {
         expect(result).to.equal(expected);
     });
 
+    it('method - require arguments', async function () {
+        const body = {
+            path: `${mockDataPath}.default.test.sum`,
+            requireArguments
+        };
+        const requestParams = {
+            url,
+            body: body,
+            json: true
+        };
+        const response = await post(requestParams);
+        const { result } = response;
+        const expected = 6;
+
+        expect(result).to.be.ok;
+        expect(result).to.equal(expected);
+    });
+
     it('method - async', async function () {
         const body = {
             path: `${mockDataPath}.default.test.methodAsync`,
@@ -77,10 +95,30 @@ describe('Start server - should return a result', function() {
         expect(result).to.equal(expected);
     });
 
+    it('method - async: require arguments', async function () {
+        const body = {
+            path: `${mockDataPath}.default.test.sumAsync`,
+            requireArguments: requireArguments
+                .slice(0, requireArguments.length - 1)
+                .concat(callbackPath)
+        };
+        const requestParams = {
+            url,
+            body: body,
+            json: true
+        };
+        const response = await post(requestParams);
+        const { result } = response;
+        const expected = 3;
+
+        expect(result).to.be.ok;
+        expect(result).to.equal(expected);
+    });
+
     it('Constructor - attribute', async function () {
         const body = {
             path: `${mockDataPath}.TestClass`,
-            instanceGetPath: 'test',
+            instanceAttribute: 'test',
             constructorParams: {
                 booya: 'kasha'
             }
@@ -101,9 +139,9 @@ describe('Start server - should return a result', function() {
     it('Constructor - method', async function () {
         const body = {
             path: `${mockDataPath}.TestClass`,
-            instancePath: 'sum',
+            instanceMethod: 'sum',
             constructorParams: {},
-            instanceArguments: [1, 2, 3, 4, 5]
+            arguments: [1, 2, 3, 4, 5]
         };
         const requestParams = {
             url,
@@ -121,9 +159,9 @@ describe('Start server - should return a result', function() {
     it('Constructor - method: async', async function () {
         const body = {
             path: `${mockDataPath}.TestClass`,
-            instancePath: 'sumAsync',
+            instanceMethod: 'sumAsync',
             constructorParams: {},
-            instanceArguments: [1, 2],
+            arguments: [1, 2],
             callback: true
         };
         const requestParams = {
