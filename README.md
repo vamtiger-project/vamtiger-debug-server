@@ -47,17 +47,6 @@ module.exports = {
         },
         methodAsync: (param: string, callback: Callback<string>) => {
             callback(null, param)
-        },
-        sum: (numbers: number[]) => numbers.reduce((sum, number) => sum + number, 0),
-        sumAsync: (number1: number, number2: number, callback: Callback<number>) => callback(null, [number1, number2].reduce((sum, number) => sum + number, 0)),
-        argument1: 1,
-        argument2: 2,
-        argument3: 3,
-        callback: function (error: Error, result: number) {
-            if (error)
-                throw error;
-
-            return result;
         }
     }
 };
@@ -161,6 +150,24 @@ post({
 
 Arguments can also be dynamically imported:
 ```javascript
+/* path/to/module.js
+module.exports = {
+    test: {
+        sum: (numbers: number[]) => numbers.reduce((sum, number) => sum + number, 0),
+        sumAsync: (number1: number, number2: number, callback: Callback<number>) => callback(null, [number1, number2].reduce((sum, number) => sum + number, 0)),
+        argument1: 1,
+        argument2: 2,
+        argument3: 3,
+        callback: function (error: Error, result: number) {
+            if (error)
+                throw error;
+
+            return result;
+        }
+    }
+};
+*/
+
 post({
     url,
     body: {
