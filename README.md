@@ -25,8 +25,6 @@ Once installed, [VAMTIGER Debug Server](https://github.com/vamtiger-project/vamt
 Or if install globally, it can be run as a binary executable:
 ```bash
 vamtiger-debug-server --port 8888
-# OR with a custom request handler
-vamtiger-debug-server --port 8888 --handleRequest path/to/request/handler
 ```
 
 After starting [VAMTIGER Debug Server](https://github.com/vamtiger-project/vamtiger-debug-server), modules can be debugged via a POST request:
@@ -197,7 +195,7 @@ post({
 }); // 3
 ```
 
-A custom request handler can also be defined:
+[VAMTIGER Debug Server](https://github.com/vamtiger-project/vamtiger-debug-server) can also be use as an HTTP server by defining a path to a custom request handler:
 ```bash
 vamtiger-debug-server --port 8888 --handleRequest path/to/request/handler
 ```
