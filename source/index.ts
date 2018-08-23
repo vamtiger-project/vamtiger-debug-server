@@ -5,10 +5,14 @@ import Argv = require('vamtiger-argv');
 
 const referenceObjectPath = require('vamtiger-reference-object-path') as ReferenceObjectPath;
 
-let server: Server;
+let server: Server | undefined;
 
-export default function vamtigerDebugServer({ port }: Params) {
-    server = !server ? createServer(handleRequest) : server;
+export default function vamtigerDebugServer({ port, handleRequest: handleRequestPath }: Params) {
+    const handleRequestModule = handleRequestPath && vamtigerRequire({
+        path: handleRequestPath
+    }) as typeof handleRequest;
+
+    server = !server ? createServer(handleRequestModule || handleRequest) : server;
 
     server.listen(port);
 
@@ -16,11 +20,14 @@ export default function vamtigerDebugServer({ port }: Params) {
 }
 
 export function stopServer() {
-    server.close();
+    if (server)
+        server.close();
+
+    server = undefined;
 }
 
 async function handleRequest(request: IncomingMessage, response: ServerResponse) {
-    const body = await getBody({ request });
+    const body = await getBody({ request }) as Body;
     const callback = (error: Error, result: any) => response.end(JSON.stringify({ error, result }));
 
     let result;
@@ -51,13 +58,13 @@ async function handleRequest(request: IncomingMessage, response: ServerResponse)
     };
 }
 
-function getBody({ request }: GetBodyParams): Promise<Body> {
+export function getBody({ request }: GetBodyParams): Promise<AnyObject> {
     const body = [] as Uint8Array[];
 
     return new Promise(resolve => {
         request.on(
             Event.data,
-            chuck => body.push(chuck)
+            chunk => body.push(chunk)
         );
         request.on(
             Event.end,
@@ -71,6 +78,7 @@ function getBody({ request }: GetBodyParams): Promise<Body> {
 
 export interface Params {
     port: string | number;
+    handleRequest?: string;
 }
 
 export interface GetBodyParams {
@@ -80,6 +88,10 @@ export interface GetBodyParams {
 export interface Body extends RequireParams {
     callback?: boolean;
     instanceGetPath?: string;
+}
+
+export interface AnyObject {
+    [key: string]: any;
 }
 
 export enum Event {
@@ -96,7 +108,8 @@ export enum HeaderValue {
 }
 
 export enum CommandlineArgs {
-    port = 'port'
+    port = 'port',
+    handleRequest = 'handleRequest'
 }
 
 export type VamtigerDebugServer = typeof vamtigerDebugServer;

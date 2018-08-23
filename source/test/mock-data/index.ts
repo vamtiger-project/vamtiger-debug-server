@@ -1,3 +1,6 @@
+import { IncomingMessage, ServerResponse } from 'http';
+import { getBody, HeaderKey, HeaderValue } from '../..';
+
 export const mockDataPath = __filename.replace('.js', '');
 
 export const requireArguments = [
@@ -52,8 +55,22 @@ export function callback(error: Error, result: number) {
     return result;
 }
 
+export async function handleRequest(request: IncomingMessage, response: ServerResponse) {
+    const body = await getBody({ request }) as Body;
+    const message = body.hello === 'world' ? true : false;
+    const result = { message };
+
+    response.setHeader(HeaderKey.contentType, HeaderValue.json);
+
+    response.end(JSON.stringify({ result }));
+}
+
 export interface Params {
     [key: string]: any;
+}
+
+export interface Body {
+    hello: string;
 }
 
 export type Callback<T> = (error: Error|null, param: T) => void;
